@@ -1,5 +1,9 @@
 version: '3'
 
+volumes:
+  gpapi-python-site-packages: {}
+  gpapi-python-dist-packages: {}
+
 services:
   postgresql:
     container_name: gpapi-postgresql
@@ -31,6 +35,8 @@ services:
       - '8000:8000'
     volumes:
       - ./:/app
+      - gpapi-python-site-packages:/usr/local/lib/python3.6/site-packages
+      - gpapi-python-dist-packages:/usr/local/lib/python3.6/dist-packages
     environment:
       - SECRET_KEY
       - DEBUG=true
