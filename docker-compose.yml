@@ -1,16 +1,40 @@
 version: '3'
 
 services:
+  postgresql:
+    container_name: gpapi-postgresql
+    image: postgres:9.6
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=grassparty
+      - POSTGRES_USER=grassparty
+      - POSTGRES_PASSWORD=grasspartypassword
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8
+    healthcheck:
+      test: "pg_isready -h localhost -p 5432 -q -U postgres"
+      interval: 3s
+      timeout: 1s
+      retries: 10
+
   django:
     container_name: gpapi-django
     build:
       context: .
       dockerfile: Dockerfile-django
-    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - postgresql
+    links:
+      - postgresql
+    command: /gpapi-django-start.sh
     ports:
       - '8000:8000'
     volumes:
       - ./:/app
     environment:
       - SECRET_KEY
-      - DEBUG
+      - DEBUG=true
+      - POSTGRES_HOST=postgresql
+      - POSTGRES_NAME=grassparty
+      - POSTGRES_USER=grassparty
+      - POSTGRES_PASSWORD=grasspartypassword
