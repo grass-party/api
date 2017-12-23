@@ -3,6 +3,8 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.6.1
+        environment:
+          SECRET_KEY: (jg_#jns8rl8_$^j9--wvs537mzavivm0eqx03cqg*wj4m(k@e
       - image: circleci/postgres:9.6.2
         environment:
           POSTGRES_USER: root
