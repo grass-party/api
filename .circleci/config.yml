@@ -6,7 +6,7 @@ jobs:
         environment:
           SECRET_KEY: (jg_#jns8rl8_$^j9--wvs537mzavivm0eqx03cqg*wj4m(k@e
           DEBUG: true
-          POSTGRES_HOST: postgresql
+          POSTGRES_HOST: localhost
           POSTGRES_NAME: grassparty
           POSTGRES_USER: grassparty
           POSTGRES_PASSWORD: grasspartypassword
