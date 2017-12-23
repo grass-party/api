@@ -1,6 +1,6 @@
 # GPAPI
 
-[![CircleCI](https://circleci.com/gh/grass-party/api.svg?style=svg)](https://circleci.com/gh/grass-party/api)
+[![CircleCI](https://circleci.com/gh/grass-party/api.svg?style=svg)](https://circleci.com/gh/grass-party/api) [![codecov](https://codecov.io/gh/grass-party/api/branch/master/graph/badge.svg)](https://codecov.io/gh/grass-party/api)
 
 잔디당의 서비스 API 서버입니다.
 
