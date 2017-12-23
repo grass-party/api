@@ -32,7 +32,10 @@ jobs:
       - run:
           command: |
             . venv/bin/activate
-            python manage.py test
+            coverage run ./manage.py test
+      - run:
+          command: |
+            codecov
       - store_artifacts:
           path: test-reports/
           destination: tr1
