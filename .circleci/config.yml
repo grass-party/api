@@ -34,8 +34,6 @@ jobs:
           command: |
             . venv/bin/activate
             coverage run ./manage.py test
-      - run:
-          command: |
             codecov
       - store_artifacts:
           path: test-reports/
