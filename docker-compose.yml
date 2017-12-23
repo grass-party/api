@@ -22,7 +22,7 @@ services:
       - gpapi-python-site-packages:/usr/local/lib/python3.6/site-packages
       - gpapi-python-dist-packages:/usr/local/lib/python3.6/dist-packages
     environment:
-      - SECRET_KEY
+      - SECRET_KEY=a6lbgko!k@_5jv%@tqkl0ph#0dc)1zyu!41b0ehtyma93obes8
       - DEBUG=true
       - POSTGRES_HOST=postgresql
       - POSTGRES_NAME=grassparty
