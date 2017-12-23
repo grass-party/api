@@ -2,33 +2,29 @@ version: 2
 jobs:
   build:
     docker:
-      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
       - image: circleci/python:3.6.1
-
-    working_directory: ~/repo
+      - image: circleci/postgres:9.6.2
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle_test
     steps:
       - checkout
       - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
-          - v1-dependencies-
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
-          name: Install Docker Compose
           command: |
-            curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-            chmod +x ~/docker-compose
-            sudo mv ~/docker-compose /usr/local/bin/docker-compose
-      - setup_remote_docker
-      - run:
-          name: runserver_test
-          command: |
-            set -x
-            docker-compose up -d --build
-            sleep 4
-            docker exec -it gpapi-django python manage.py test
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
       - save_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
-        
-          
+            - "venv"
+      - run:
+          command: |
+            . venv/bin/activate
+            python manage.py test
+      - store_artifacts:
+          path: test-reports/
+          destination: tr1
+
