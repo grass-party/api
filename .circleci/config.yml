@@ -5,10 +5,17 @@ jobs:
       - image: circleci/python:3.6.1
         environment:
           SECRET_KEY: (jg_#jns8rl8_$^j9--wvs537mzavivm0eqx03cqg*wj4m(k@e
+          DEBUG: true
+          POSTGRES_HOST: postgresql
+          POSTGRES_NAME: grassparty
+          POSTGRES_USER: grassparty
+          POSTGRES_PASSWORD: grasspartypassword
       - image: circleci/postgres:9.6.2
         environment:
-          POSTGRES_USER: root
-          POSTGRES_DB: circle_test
+          POSTGRES_DB: grassparty
+          POSTGRES_USER: grassparty
+          POSTGRES_PASSWORD: grasspartypassword
+          POSTGRES_INITDB_ARGS: --encoding=UTF-8
     steps:
       - checkout
       - restore_cache:
