@@ -5,22 +5,6 @@ volumes:
   gpapi-python-dist-packages: {}
 
 services:
-  postgresql:
-    container_name: gpapi-postgresql
-    image: postgres:9.6
-    volumes:
-      - ./postgresql/data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=grassparty
-      - POSTGRES_USER=grassparty
-      - POSTGRES_PASSWORD=grasspartypassword
-      - POSTGRES_INITDB_ARGS=--encoding=UTF-8
-    healthcheck:
-      test: "pg_isready -h localhost -p 5432 -q -U postgres"
-      interval: 3s
-      timeout: 1s
-      retries: 10
-
   django:
     container_name: gpapi-django
     build:
@@ -44,3 +28,19 @@ services:
       - POSTGRES_NAME=grassparty
       - POSTGRES_USER=grassparty
       - POSTGRES_PASSWORD=grasspartypassword
+
+  postgresql:
+    container_name: gpapi-postgresql
+    image: postgres:9.6
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=grassparty
+      - POSTGRES_USER=grassparty
+      - POSTGRES_PASSWORD=grasspartypassword
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8
+    healthcheck:
+      test: "pg_isready -h localhost -p 5432 -q -U postgres"
+      interval: 3s
+      timeout: 1s
+      retries: 10
