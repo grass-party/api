@@ -19,7 +19,12 @@ jobs:
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - setup_remote_docker
-
+      - run:
+          name: runserver_test
+          command: |
+            set -x
+            docker-compose up -d --build
+            docker exec -it gpapi-django ./manage.py test
       - save_cache:
           paths:
             - ./venv
