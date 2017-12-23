@@ -24,7 +24,8 @@ jobs:
           command: |
             set -x
             docker-compose up -d --build
-            docker exec -it gpapi-django ./manage.py test
+            sleep 4
+            docker exec -it gpapi-django python manage.py test
       - save_cache:
           paths:
             - ./venv
