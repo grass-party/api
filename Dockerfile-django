@@ -5,4 +5,5 @@ RUN mkdir /app
 WORKDIR /app
 
 ADD ./requirements.txt /app/
+ADD ./manage.py /app/
 ADD ./gpapi-django-start.sh /
