@@ -1,9 +1,8 @@
 FROM python:3.6
 ENV PYTHONUNBUFFERED=1
 
+RUN pip install --upgrade pip && pip install virtualenv
+RUN virtualenv /venv && . /venv/bin/activate && pip install --upgrade pip && pip install zappa
+
 RUN mkdir /app
 WORKDIR /app
-
-ADD ./requirements.txt /app/
-ADD ./manage.py /app/
-ADD ./gpapi-django-start.sh /
