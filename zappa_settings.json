@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "aws_region": "ap-northeast-2",
+        "s3_bucket": "gpapi-a6lbgk",
+        "runtime": "python3.6",
+        "project_name": "gpapi-django",
+        "lambda_descrirption": "gpapi-django dev environment",
+        "django_settings": "gpapi.settings"
+    }
+}

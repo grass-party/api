@@ -28,6 +28,9 @@ services:
       - POSTGRES_NAME=grassparty
       - POSTGRES_USER=grassparty
       - POSTGRES_PASSWORD=grasspartypassword
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_DEFAULT_REGION
 
   postgresql:
     container_name: gpapi-postgresql
