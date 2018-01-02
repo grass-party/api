@@ -1,8 +1,8 @@
 version: '3'
 
 volumes:
-  gpapi-python-site-packages: {}
-  gpapi-python-dist-packages: {}
+  django-python-site-packages: {}
+  django-python-bin: {}
 
 services:
   django:
@@ -14,13 +14,13 @@ services:
       - postgresql
     links:
       - postgresql
-    command: /gpapi-django-start.sh
+    command: /app/start_django.sh
     ports:
       - '8000:8000'
     volumes:
       - ./:/app
-      - gpapi-python-site-packages:/usr/local/lib/python3.6/site-packages
-      - gpapi-python-dist-packages:/usr/local/lib/python3.6/dist-packages
+      - django-python-site-packages:/venv/lib/python3.6/site-packages
+      - django-python-bin:/venv/bin
     environment:
       - SECRET_KEY=a6lbgko!k@_5jv%@tqkl0ph#0dc)1zyu!41b0ehtyma93obes8
       - DEBUG=true
