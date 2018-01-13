@@ -1,10 +1,23 @@
 {
     "dev": {
         "aws_region": "ap-northeast-2",
-        "s3_bucket": "gpapi-a6lbgk",
+        "s3_bucket": "gpapi-a6lbgj",
+        "vpc_config" : {
+            "SubnetIds": [ "subnet-cf0264a7", "subnet-647da928" ],
+            "SecurityGroupIds": [ "sg-ec0e9487" ]
+        },
         "runtime": "python3.6",
+        "timeout_seconds": 300,
         "project_name": "gpapi-django",
         "lambda_descrirption": "gpapi-django dev environment",
-        "django_settings": "gpapi.settings"
+        "django_settings": "gpapi.settings.dev",
+        "environment_variables": {
+            "DEBUG": "true",
+            "SECRET_KEY": "a6lbgko!k@_5jv%@tqkl0ph#0dc)1zyu!41b0ehtyma93obes8",
+            "POSTGRES_HOST": "grassparty.chgog37p2xmy.ap-northeast-2.rds.amazonaws.com",
+            "POSTGRES_NAME": "grassparty",
+            "POSTGRES_USER": "grassparty",
+            "POSTGRES_PASSWORD": "grasspartypassword"
+        }
     }
 }
