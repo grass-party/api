@@ -8,7 +8,7 @@ class ChoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Choice
         fields = (
-            'title',
+            'title', 'order',
         )
 
 
@@ -43,8 +43,7 @@ class AgendaSerializer(serializers.ModelSerializer):
 
         agenda = Agenda.objects.create(**validated_data)
         for choice_data in choices_data:
-            print(choice_data)
-            choice = Choice.objects.create(**choice_data)
-            agenda.choices.append(choice)
+            choice_data['agenda_id'] = agenda.id
+            Choice.objects.create(**choice_data)
 
         return agenda
