@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework import routers
 
-from agenda import views
+from agenda import views as agenda_views
+from user import views as user_views
 
 
 router = routers.DefaultRouter()
-router.register(r'agendas', views.AgendaViewSet, base_name='agendas')
+router.register('agendas', agenda_views.AgendaViewSet, base_name='agendas')
+router.register('users', user_views.UserViewSet)
 
 urlpatterns = [
     url('', include(router.urls)),

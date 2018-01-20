@@ -128,5 +128,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-
 AUTH_USER_MODEL = 'user.User'
+
+
+BLOCKCHAIN_HOST = 'http://ec2-13-125-43-134.ap-northeast-2.compute.amazonaws.com:3000'
