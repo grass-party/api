@@ -1,3 +1,5 @@
+import hashlib
+
 from django.contrib.auth import get_user_model
 from django.db import models
 
@@ -11,6 +13,21 @@ class Agenda(models.Model):
     published_at = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def blockchain_serialize(self):
+        agenda_created_at = self.created_at.strftime('%Y%m%d')
+        target_data = f'[id:{self.id}]'
+        target_data += f'[title:{self.title}]'
+        target_data += f'[description:{self.description}]'
+        target_data += f'[created_at:{agenda_created_at}]'
+
+        choices = self.choices.order_by('order').all()
+        for choice in choices:
+            target_data += f'[choice_order:{choice.order}]'
+            target_data += f'[choice_title:{choice.title}]'
+
+        target_data = hashlib.sha512(target_data.encode()).hexdigest()
+        return target_data
 
 
 class Choice(models.Model):
