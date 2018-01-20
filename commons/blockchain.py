@@ -20,8 +20,7 @@ class Set:
         }
         resp = requests.post(url, data=data, headers=headers)
 
-        import pprint
-        pprint.pprint(resp.__dict__)
+        return resp
 
     @classmethod
     def agenda(cls, agenda):
@@ -39,8 +38,7 @@ class Set:
             'data': target_data,
         }))
 
-        import pprint
-        pprint.pprint(resp.__dict__)
+        return resp
 
 
 class Get:
