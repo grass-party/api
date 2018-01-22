@@ -6,7 +6,7 @@ from rest_framework import serializers
 from rest_framework import viewsets
 
 from commons import blockchain
-from .serializers import UserSerializer
+from user.serializers import UserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):

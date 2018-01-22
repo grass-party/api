@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from user.serializers import UserSerializer
-from .models import Agenda, Choice
+from agenda.models import Agenda, Choice
 
 
 class ChoiceSerializer(serializers.ModelSerializer):
@@ -19,11 +19,12 @@ class AgendaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Agenda
         fields = (
-            'title', 'description',
+            'id', 'title', 'description',
             'is_publish', 'published_at', 'created_at', 'updated_at',
             'owner', 'choices',
         )
         read_only_fields = (
+            'id',
             'is_publish', 'published_at', 'created_at', 'updated_at',
             'owner',
         )
