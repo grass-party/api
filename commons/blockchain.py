@@ -1,5 +1,4 @@
 import json
-import hashlib
 
 from django.conf import settings
 import requests
@@ -9,38 +8,38 @@ class Set:
     root = f'{settings.BLOCKCHAIN_HOST}'
 
     @classmethod
-    def pubkey(cls, user_id, pubkey):
-        url = f'{cls.root}/register'
-        data = json.dumps({
-            'id': str(user_id),
-            'pubkey': pubkey,
-        })
+    def _req(cls, path, data):
+        url = f'{cls.root}/{path}'
+        data = json.dumps(data)
         headers = {
             'Content-Type': 'application/json',
         }
         resp = requests.post(url, data=data, headers=headers)
+        return resp
 
-        import pprint
-        pprint.pprint(resp.__dict__)
+    @classmethod
+    def pubkey(cls, user_id, pubkey):
+        resp = cls._req('register', {
+            'id': str(user_id),
+            'pubkey': pubkey,
+        })
+        return resp
 
     @classmethod
     def agenda(cls, agenda):
-        agenda_created_at = agenda.created_at.strftime('%Y%m%d')
-        target_data = f'{agenda.id}{agenda.title}{agenda.description}\
-            {agenda_created_at}'
-        for choice in agenda.choices:
-            choice_created_at = agenda.created_at.strftime('%Y%m%d')
-            target_data += f'{choice.title}{choice_created_at}'
-        target_data = hashlib.sha512(target_data).hexdigest()
-
-        url = f'{cls.root}/asdf'
-        resp = requests.post(url, data=json.dumps({
+        resp = cls._req('setAgenda', {
             'id': agenda.id,
-            'data': target_data,
-        }))
+            'data': agenda.blockchain_serialize(),
+        })
+        return resp
 
-        import pprint
-        pprint.pprint(resp.__dict__)
+    @classmethod
+    def vote(cls, agenda):
+        resp = cls._req('vote', {
+            'id': agenda.id,
+            'data': agenda.blockchain_serialize(),
+        })
+        return resp
 
 
 class Get:
