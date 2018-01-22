@@ -33,7 +33,7 @@ class Agenda(models.Model):
 class Choice(models.Model):
     agenda = models.ForeignKey('Agenda', related_name='choices',
                                on_delete=models.CASCADE)
-    title = models.CharField(max_length=100, unique=True)
+    title = models.CharField(max_length=100)
     order = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

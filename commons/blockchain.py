@@ -34,10 +34,10 @@ class Set:
         return resp
 
     @classmethod
-    def vote(cls, agenda):
+    def vote(cls, user_id, agenda_id, vote):
         resp = cls._req('vote', {
-            'id': agenda.id,
-            'data': agenda.blockchain_serialize(),
+            'id': f'{user_id}-{agenda_id}',
+            'data': vote,
         })
         return resp
 
