@@ -21,7 +21,7 @@ class AgendaViewSet(viewsets.ModelViewSet):
                 'agenda_id': ['agenda_id field is required'],
             })
 
-        agenda = Agenda.objects.get(agenda_id)
+        agenda = Agenda.objects.get(id=agenda_id)
         blockchain.Set.agenda(agenda)
 
         return response.Response(
@@ -29,14 +29,21 @@ class AgendaViewSet(viewsets.ModelViewSet):
         )
 
     @decorators.detail_route(methods=['post'], url_path='vote')
-    def vote(self, request, id=None):
+    def vote(self, request, pk=None):
         vote = request.data.get('vote')
         if not vote:
             raise serializers.ValidationError({
                 'vote': ['vote field is required'],
             })
 
-        blockchain.Set.vote(1, id, vote)
+        agenda = Agenda.objects.get(id=pk)
+        choices = [choice.order for choice in agenda.choices.all()]
+        if vote not in choices:
+            raise serializers.ValidationError({
+                'vote': ['there is no number of choice you voted'],
+            })
+
+        blockchain.Set.vote(1, pk, vote)
 
         return response.Response(
             status=status.HTTP_201_CREATED,
