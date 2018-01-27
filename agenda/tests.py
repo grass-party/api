@@ -33,3 +33,28 @@ class TestAgendaCreate(tests.TestCase):
         self.assertEqual(resp.data['title'], params['title'])
         self.assertEqual(resp.data['description'], params['description'])
         self.assertEqual(resp.data['owner']['email'], self.current_user.email)
+
+    def test_no_agenda_params(self):
+        params = {}
+        resp = self.client.post('/agendas/', data=params)
+
+        self.assertEqual(resp.status_code, 400)
+        self.assertIn('title', resp.data)
+        self.assertIn('description', resp.data)
+        self.assertIn('choices', resp.data)
+
+    def test_no_choices_params(self):
+        params = {
+            'title': 'my title',
+            'description': 'my description',
+            'choices': [{
+                'not title': 'not title',
+                'not order': 'not order',
+            }],
+        }
+        resp = self.client.post('/agendas/', data=params)
+
+        self.assertEqual(resp.status_code, 400)
+        self.assertIn('choices', resp.data)
+        self.assertIn('title', resp.data['choices'][0])
+        self.assertIn('order', resp.data['choices'][0])
