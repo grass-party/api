@@ -44,3 +44,16 @@ class Set:
 
 class Get:
     root = f'{settings.BLOCKCHAIN_HOST}'
+
+    @classmethod
+    def _req(cls, path, data):
+        url = f'{cls.root}/{path}'
+        resp = requests.get(url, data=data)
+        return resp
+
+    @classmethod
+    def symkey(cls, user_id):
+        resp = cls._req('symkey', {
+            'user_id': user_id,
+        })
+        return resp
