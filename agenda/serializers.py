@@ -31,8 +31,7 @@ class AgendaSerializer(serializers.ModelSerializer):
 
     def validate_choices(self, choices):
         if not choices:
-            raise serializers.ValidationError('choices field is empty')
-
+            raise serializers.ValidationError('choices field is required')
         return choices
 
     def create(self, validated_data):

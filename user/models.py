@@ -1,8 +1,12 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
+from rest_framework import exceptions
 
 
 class UserManager(BaseUserManager):
@@ -50,5 +54,25 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.email
 
-    def __repr__(self):
-        return self.email
+    def social_auth(self, request, access_token, refresh_token, expires_in):
+        user = authenticate(
+            request=request, username=self.email, password='social')
+        if not user:
+            raise exceptions.AuthenticationFailed(
+                'fail to django authenticate')
+
+        login(request, user)
+
+        request.session['access_token'] = access_token
+        request.session['refresh_token'] = refresh_token
+        request.session['expires_in'] = expires_in
+
+
+class SocialAccount(models.Model):
+    user = models.ForeignKey(get_user_model(), related_name='socials',
+                             on_delete=models.CASCADE)
+    provider = models.CharField(max_length=10)
+    account_id = models.CharField(max_length=100)
+    email = models.EmailField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

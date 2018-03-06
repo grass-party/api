@@ -29,6 +29,8 @@ router.register('users', user_views.UserViewSet)
 urlpatterns = [
     url('', include(router.urls)),
     url('api/', include(router.urls)),
+
     path('admin/', admin.site.urls),
-    path('browserable-api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('browserable-api-auth/',
+         include('rest_framework.urls', namespace='rest_framework')),
 ]

@@ -127,11 +127,20 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+APPEND_SLASH = False
+
 
 # Custom Settings
 
-APPEND_SLASH = False
-
 AUTH_USER_MODEL = 'user.User'
+
+OPEN_API = {
+    'naver': {
+        'client_id': os.environ.get('NAVER_CLIENT_ID'),
+        'client_secret': os.environ.get('NAVER_CLIENT_SECRET'),
+        'host': 'https://openapi.naver.com',
+        'oauth_host': 'https://nid.naver.com',
+    },
+}
 
 BLOCKCHAIN_HOST = 'http://ec2-13-125-43-134.ap-northeast-2.compute.amazonaws.com:3000'
