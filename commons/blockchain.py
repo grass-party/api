@@ -28,7 +28,7 @@ class Set:
     @classmethod
     def agenda(cls, agenda):
         resp = cls._req('setAgenda', {
-            'agenda_id': agenda.id,
+            'agenda_id': str(agenda.id),
             'agenda_hash': agenda.blockchain_serialize(),
         })
         return resp
