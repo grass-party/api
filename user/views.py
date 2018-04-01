@@ -26,7 +26,8 @@ class UserViewSet(viewsets.ModelViewSet):
                 'account_pubkey': ['account_pubkey field is required'],
             })
 
-        blockchain.Set.pubkey(1, pubkey)
+        user_id = request.data.get('user_id')  # for test
+        blockchain.Set.pubkey(user_id, pubkey)
 
         return response.Response(status=status.HTTP_201_CREATED)
 

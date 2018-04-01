@@ -37,7 +37,7 @@ class Set:
     def vote(cls, user_id, agenda_id, vote):
         resp = cls._req('vote', {
             'id': f'{user_id}-{agenda_id}',
-            'data': vote,
+            'data': str(vote),
         })
         return resp
 
