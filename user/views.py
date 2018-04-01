@@ -20,10 +20,10 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @decorators.list_route(methods=['post'], url_path='register_pubkey')
     def pubkey(self, request):
-        pubkey = request.data.get('pubkey')
+        pubkey = request.data.get('account_pubkey')
         if not pubkey:
             raise serializers.ValidationError({
-                'pubkey': ['pubkey field is required'],
+                'account_pubkey': ['account_pubkey field is required'],
             })
 
         blockchain.Set.pubkey(1, pubkey)

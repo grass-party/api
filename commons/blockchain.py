@@ -20,8 +20,8 @@ class Set:
     @classmethod
     def pubkey(cls, user_id, pubkey):
         resp = cls._req('register', {
-            'id': str(user_id),
-            'pubkey': pubkey,
+            'account_id': str(user_id),
+            'account_pubkey': pubkey,
         })
         return resp
 
