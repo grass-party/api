@@ -46,7 +46,7 @@ class AgendaViewSet(viewsets.ModelViewSet):
                 'choice': ['there is no number of choice you voted'],
             })
 
-        user_id = request.data.get('user_id')
+        user_id = request.data.get('user_id', 1) # for test
         blockchain.Set.vote(user_id, pk, choice)
 
         return response.Response(
