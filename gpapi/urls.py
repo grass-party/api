@@ -23,7 +23,7 @@ from user import views as user_views
 
 
 router = routers.DefaultRouter()
-router.register('agendas', agenda_views.AgendaViewSet, base_name='agendas')
+router.register('agendas', agenda_views.AgendaViewSet)
 router.register('users', user_views.UserViewSet)
 
 urlpatterns = [
