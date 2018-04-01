@@ -13,6 +13,9 @@ class AgendaViewSet(viewsets.ModelViewSet):
     queryset = Agenda.objects.all()
     serializer_class = AgendaSerializer
 
+    def get_queryset(self):
+        return self.queryset.order_by('-created_at')
+
     @decorators.list_route(methods=['post'], url_path='blockchain')
     def create_blockchain(self, request):
         agenda_id = request.data.get('agenda_id')
